@@ -1,9 +1,3 @@
-export function customTiles(xs: string[]) {
-  return xs
-    .map((ui, i) => ({ ui, id: `${i}` }))
-    .concat({ ui: "", id: `${xs.length}` });
-}
-
 export function getMovePos(xs: string[]) {
   return (i: number) => {
     const n = Math.sqrt(xs.length);
@@ -16,12 +10,6 @@ export function getMovePos(xs: string[]) {
       { pos: i + n, t: xs[i + n] },
     ].find((x) => x.t === `${xs.length - 1}`)?.pos;
   };
-}
-
-export function numberTiles(x: number) {
-  if (x < 2) return [];
-  const xs = Array.from({ length: x ** 2 - 1 }, (_, i) => `${i + 1}`);
-  return customTiles(xs);
 }
 
 export function verifyTiles(xs: string[]) {
