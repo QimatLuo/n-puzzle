@@ -36,7 +36,7 @@ describe("numberTiles", () => {
         { id: "3", ui: "" },
       ],
     ],
-    [-1, []],
+    [-1, [{ id: "0", ui: "" }]],
   ])("%s", (x, r) => {
     expect(numberTiles(x)).toEqual(r);
   });

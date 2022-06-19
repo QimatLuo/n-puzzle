@@ -53,7 +53,6 @@ export function customTiles(xs: string[]) {
 }
 
 export function numberTiles(x: number) {
-  if (x < 2) return [];
   const xs = Array.from({ length: x ** 2 - 1 }, (_, i) => `${i + 1}`);
   return customTiles(xs);
 }
