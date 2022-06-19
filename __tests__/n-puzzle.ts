@@ -31,8 +31,7 @@ describe("customTiles", () => {
 });
 
 describe("getMovePos", () => {
-  const xs = numberTiles(2);
-  const f = getMovePos(xs);
+  const f = getMovePos(["0", "1", "2", "3"]);
 
   test.each([
     [0, undefined],
@@ -63,24 +62,8 @@ describe("numberTiles", () => {
 
 describe("verifyTiles", () => {
   test.each([
-    [
-      true,
-      [
-        { id: "0", ui: "a" },
-        { id: "1", ui: "b" },
-        { id: "2", ui: "c" },
-        { id: "3", ui: "" },
-      ],
-    ],
-    [
-      false,
-      [
-        { id: "0", ui: "a" },
-        { id: "1", ui: "b" },
-        { id: "3", ui: "" },
-        { id: "2", ui: "c" },
-      ],
-    ],
+    [true, ["0", "1", "2", "3"]],
+    [false, ["0", "1", "3", "2"]],
   ])("%s", (r, x) => {
     expect(verifyTiles(x)).toEqual(r);
   });
