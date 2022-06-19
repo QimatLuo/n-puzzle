@@ -34,3 +34,10 @@ export function initialTiles(size: number) {
     return dom;
   });
 }
+
+export function moveTiles(ids: string[]) {
+  ids.forEach((id, i) => {
+    const d = document.getElementById(id);
+    d.style.order = `${i}`;
+  });
+}
