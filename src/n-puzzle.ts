@@ -1,5 +1,7 @@
 export function customTiles(xs: string[]) {
-  return xs.map((ui, id) => ({ ui, id })).concat({ ui: "", id: xs.length });
+  return xs
+    .map((ui, i) => ({ ui, id: `${i}` }))
+    .concat({ ui: "", id: `${xs.length}` });
 }
 
 export function getMovePos<T extends Tile>(xs: T[]) {
@@ -12,7 +14,7 @@ export function getMovePos<T extends Tile>(xs: T[]) {
       { pos: i + 1, t: isEdage(i + 1) ? undefined : xs[i + 1] },
       { pos: i - n, t: xs[i - n] },
       { pos: i + n, t: xs[i + n] },
-    ].find((x) => x.t?.id === xs.length - 1)?.pos;
+    ].find((x) => x.t?.id === `${xs.length - 1}`)?.pos;
   };
 }
 
@@ -23,10 +25,10 @@ export function numberTiles(x: number) {
 }
 
 export function verifyTiles<T extends Tile>(xs: T[]) {
-  return xs.every((x, i) => x.id === i);
+  return xs.every((x, i) => x.id === `${i}`);
 }
 
 export interface Tile {
-  id: number;
+  id: string;
   ui: string;
 }
