@@ -4,7 +4,7 @@
   "description": "最近在玩這款遊戲，但因為都會跳廣告，有點惱人。  \r 而且該遊戲是計時，不是計步，且廣告時間還會算進計時裡，真是太不專業了。  \r 我還是自己弄一個 Web APP 當練習，順便改善這些問題：",
   "main": "index.js",
   "scripts": {
-    "format": "prettier --write .",
+    "format": "prettier --write . --ignore-path .gitignore",
     "start": "webpack serve --open",
     "test": "jest"
   },
