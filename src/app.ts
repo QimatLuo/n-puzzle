@@ -13,8 +13,8 @@ import {
   toArray,
   zip,
 } from "rxjs";
-import { getMovePos, verifyTiles } from "./n-puzzle";
-import { shuffle, swap } from "./util";
+import { getMovePos, shuffleTiles, verifyTiles } from "./n-puzzle";
+import { swap } from "./util";
 
 export function app(doms: HTMLElement[]) {
   const tileClicked = from(doms).pipe(
@@ -24,7 +24,7 @@ export function app(doms: HTMLElement[]) {
   return from(doms).pipe(
     map((x) => x.id),
     toArray(),
-    map(shuffle),
+    map(shuffleTiles(doms.length ** 2)),
     expand((xs) => {
       const getMovePosF = getMovePos(xs);
       const swapF = swap(xs);
