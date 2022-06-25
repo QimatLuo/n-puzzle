@@ -1,38 +1,7 @@
-import {
-  customTiles,
-  getMovePos,
-  numberTiles,
-  verifyTiles,
-} from "../src/n-puzzle";
-
-describe("customTiles", () => {
-  test.each([
-    [
-      ["a", "b", "c"],
-      [
-        { id: 0, ui: "a" },
-        { id: 1, ui: "b" },
-        { id: 2, ui: "c" },
-        { id: 3, ui: "" },
-      ],
-    ],
-    [
-      ["1", "2", "3"],
-      [
-        { id: 0, ui: "1" },
-        { id: 1, ui: "2" },
-        { id: 2, ui: "3" },
-        { id: 3, ui: "" },
-      ],
-    ],
-  ])("%s", (x, r) => {
-    expect(customTiles(x)).toEqual(r);
-  });
-});
+import { getMovePos, shuffleTiles, verifyTiles } from "../src/n-puzzle";
 
 describe("getMovePos", () => {
-  const xs = numberTiles(2);
-  const f = getMovePos(xs);
+  const f = getMovePos(["0", "1", "2", "3"]);
 
   test.each([
     [0, undefined],
@@ -44,43 +13,29 @@ describe("getMovePos", () => {
   });
 });
 
-describe("numberTiles", () => {
+describe("shuffleTiles", () => {
+  const xs = ["0", "1", "2", "3"];
+  beforeEach(() => {
+    jest.spyOn(global.Math, "random").mockReturnValue(1);
+  });
+  afterEach(() => {
+    jest.spyOn(global.Math, "random").mockRestore();
+  });
   test.each([
-    [
-      2,
-      [
-        { id: 0, ui: "1" },
-        { id: 1, ui: "2" },
-        { id: 2, ui: "3" },
-        { id: 3, ui: "" },
-      ],
-    ],
-    [-1, []],
+    [1, ["0", "3", "2", "1"]],
+    [2, ["3", "0", "2", "1"]],
+    [3, ["2", "0", "3", "1"]],
+    [4, ["2", "0", "1", "3"]],
+    [5, ["2", "3", "1", "0"]],
   ])("%s", (x, r) => {
-    expect(numberTiles(x)).toEqual(r);
+    expect(shuffleTiles(x)(xs)).toEqual(r);
   });
 });
 
 describe("verifyTiles", () => {
   test.each([
-    [
-      true,
-      [
-        { id: 0, ui: "a" },
-        { id: 1, ui: "b" },
-        { id: 2, ui: "c" },
-        { id: 3, ui: "" },
-      ],
-    ],
-    [
-      false,
-      [
-        { id: 0, ui: "a" },
-        { id: 1, ui: "b" },
-        { id: 3, ui: "" },
-        { id: 2, ui: "c" },
-      ],
-    ],
+    [true, ["0", "1", "2", "3"]],
+    [false, ["0", "1", "3", "2"]],
   ])("%s", (r, x) => {
     expect(verifyTiles(x)).toEqual(r);
   });

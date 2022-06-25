@@ -1,9 +1,13 @@
 import { shuffle, swap } from "../src/util";
 
 describe("shuffle", () => {
-  test.each([[[1, 2, 3, 4, 5, 6, 7, 8, 9]]])("%s", (x) => {
-    expect(shuffle(x)).not.toEqual(x);
-    expect(Array.isArray(x)).toBe(true);
+  const xs = [1, 2, 3];
+  afterEach(() => {
+    jest.spyOn(global.Math, "random").mockRestore();
+  });
+  test.each([[[1, 2, 3]], [[2, 1, 3]], [[3, 2, 1]]])("%s", (r) => {
+    r.forEach(jest.spyOn(global.Math, "random").mockReturnValueOnce);
+    expect(shuffle(xs)).toEqual(r);
   });
 });
 
